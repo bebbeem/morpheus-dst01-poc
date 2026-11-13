@@ -1,0 +1,13 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+solc = "0.8.20"
+optimizer = true
+optimizer_runs = 200
+# Cancun is REQUIRED (not Shanghai): the Aave v3 Pool implementation behind
+# 0x87870Bca... uses Cancun opcodes (TSTORE/TLOAD transient storage, MCOPY).
+# With Foundry's default (Shanghai) the supply() delegatecall reverts with
+# revm EvmError::NotActivated after 769 gas. Cancun matches the fork block
+# (26397383, Nov 2026, post-Cancun mainnet).
+evm_version = "cancun"
